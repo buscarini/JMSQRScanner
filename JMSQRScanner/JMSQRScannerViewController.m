@@ -7,43 +7,36 @@
 //
 
 #import "JMSQRScannerViewController.h"
+#import <JMSQRScanner/JMSQRScannerView.h>
+#import <BMF/BMFAutoLayoutUtils.h>
+
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @interface JMSQRScannerViewController ()
+
+@property (nonatomic, strong) JMSQRScannerView *scannerView;
 
 @end
 
 @implementation JMSQRScannerViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+	
+	self.scannerView = [JMSQRScannerView new];
+	[self.view addSubview:self.scannerView];
+	
+	[BMFAutoLayoutUtils fill:self.view with:self.scannerView margin:0];
+	
+	@weakify(self);
+	self.scannerView.codeScannedBlock = ^(id sender, NSString *code) {
+		@strongify(self);
+		self.code = code;
+		[self.scannerView stop];
+		[self dismissViewControllerAnimated:YES completion:nil];
+	};
+	
+	[self.scannerView start];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

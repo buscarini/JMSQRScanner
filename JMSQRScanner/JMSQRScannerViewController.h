@@ -10,4 +10,6 @@
 
 @interface JMSQRScannerViewController : UIViewController
 
+@property (nonatomic, strong) NSString *code;
+
 @end
