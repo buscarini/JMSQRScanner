@@ -1,0 +1,6 @@
+pod 'BMF/Core' , :git => 'git@bitbucket.org:buscarini/bmf.git'
+
+pod 'JMSQRScanner', :path => '../'
+
+
+inhibit_all_warnings!
