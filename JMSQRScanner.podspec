@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
 	s.requires_arc = true	
 
   s.dependency 'ZBarSDK', '~> 1.3.1'
+  s.library = 'iconv'
   
   s.source_files = 'JMSQRScanner/**/*.{h,m}'  
   
