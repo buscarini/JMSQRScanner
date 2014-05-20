@@ -37,6 +37,12 @@
 	};
 	
 	[self.scannerView start];
+	
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(close:)];
+}
+
+- (void) close: (id) sender {
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
