@@ -15,7 +15,6 @@
 @interface JMSQRScannerViewController ()
 
 @property (nonatomic, strong) JMSQRScannerView *scannerView;
-@property (nonatomic, assign) BOOL dismissing;
 
 @end
 
@@ -31,15 +30,11 @@
 	
 	@weakify(self);
 	self.scannerView.codeScannedBlock = ^(id sender, NSString *code) {
-		if (self.dismissing) return;
 		
 		@strongify(self);
 		self.code = code;
 		[self.scannerView stop];
-		self.dismissing = YES;
-		[self dismissViewControllerAnimated:YES completion:^{
-			self.dismissing = NO;
-		}];
+		[self dismissViewControllerAnimated:YES completion:nil];
 	};
 	
 	[self.scannerView start];
@@ -49,12 +44,7 @@
 
 - (void) close: (id) sender {
 	[self.scannerView stop];
-	self.dismissing = YES;
-	@weakify(self);
-	[self dismissViewControllerAnimated:YES completion:^{
-		@strongify(self);
-		self.dismissing = NO;
-	}];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
