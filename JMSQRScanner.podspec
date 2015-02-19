@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name     = 'JMSQRScanner'
-	s.version  = '0.0.2'
+	s.version  = '0.0.3'
 	s.license  = 'MIT'
 	s.summary  = 'QR Scanner for iOS'
 	s.homepage = 'https://github.com/buscarini/JMSQRScanner'

@@ -36,11 +36,12 @@
 		620892CAED37444989C6E396 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6BE380E00D5F4AEC8AB9E593 /* JMSAppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JMSAppDelegate.h; sourceTree = "<group>"; };
 		7845B1BE99E44AACA24D12D0 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
-		8FC90A918C50407DAE24CD21 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		ABBC586224D641EFAF7F5D65 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7FD730192A37C40041125D /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		AC7FD732192A38180041125D /* JMSScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMSScannerViewController.h; sourceTree = "<group>"; };
 		AC7FD733192A38180041125D /* JMSScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMSScannerViewController.m; sourceTree = "<group>"; };
+		B38E9C8E7A5EBE8436344C57 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B627F01AAA4053A3D40E8C51 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BDB34E965AB84E83B8C0035B /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E15C0D467C6F4A02ABAA7607 /* JMSAppDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JMSAppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,7 +107,7 @@
 				C68616D567EA439FBA095B0B /* UnitTests */,
 				F114DB86B41041D38A9B9230 /* Frameworks */,
 				640F4AFDD2F04895B1A66A6F /* Products */,
-				8FC90A918C50407DAE24CD21 /* Pods.xcconfig */,
+				EF645C09FF96533809EDB1D3 /* Pods */,
 			);
 			indentWidth = 4;
 			sourceTree = "<group>";
@@ -216,6 +217,15 @@
 			children = (
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		EF645C09FF96533809EDB1D3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B38E9C8E7A5EBE8436344C57 /* Pods.release.xcconfig */,
+				B627F01AAA4053A3D40E8C51 /* Pods.debug.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F114DB86B41041D38A9B9230 /* Frameworks */ = {
@@ -380,7 +390,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EB4A4A707B01462C87A7EEF1 /* Warn for files with too many lines */ = {
@@ -512,7 +522,7 @@
 		};
 		4752BE8E76374602A788100D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8FC90A918C50407DAE24CD21 /* Pods.xcconfig */;
+			baseConfigurationReference = B627F01AAA4053A3D40E8C51 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -593,7 +603,7 @@
 		};
 		81B75C32D9CC46F790D95232 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8FC90A918C50407DAE24CD21 /* Pods.xcconfig */;
+			baseConfigurationReference = B38E9C8E7A5EBE8436344C57 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;

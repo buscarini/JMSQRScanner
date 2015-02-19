@@ -10,6 +10,8 @@
 #import "WECodeScannerMatchView.h"
 #import <AVFoundation/AVFoundation.h>
 
+#import <BMF/BMF.h>
+
 @interface WECodeScannerView () <AVCaptureMetadataOutputObjectsDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
@@ -59,6 +61,8 @@
         
         self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
         self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+		self.previewLayer.connection.videoOrientation = [self videoOrientationFromCurrentDeviceOrientation];
+
         [self.layer addSublayer:self.previewLayer];
         
         self.metadataOutput = [[AVCaptureMetadataOutput alloc] init];
@@ -80,7 +84,10 @@
                                                  selector:@selector(activate)
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:[UIApplication sharedApplication]];
-        
+		
+		[[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+			self.previewLayer.connection.videoOrientation = [self videoOrientationFromCurrentDeviceOrientation];
+		}];
     }
     return self;
 }
@@ -98,8 +105,30 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (AVCaptureVideoOrientation) videoOrientationFromCurrentDeviceOrientation {
+	switch ([[UIDevice currentDevice] orientation]) {
+		case UIDeviceOrientationPortrait: {
+			return AVCaptureVideoOrientationPortrait;
+		}
+		case UIDeviceOrientationLandscapeLeft: {
+			return AVCaptureVideoOrientationLandscapeRight;
+		}
+		case UIDeviceOrientationLandscapeRight: {
+			return AVCaptureVideoOrientationLandscapeLeft;
+		}
+		case UIDeviceOrientationPortraitUpsideDown: {
+			return AVCaptureVideoOrientationPortraitUpsideDown;
+		}
+	}
+	return AVCaptureVideoOrientationPortrait;
+}
+
 - (void)setMetadataObjectTypes:(NSArray *)metaDataObjectTypes {
-    [self.metadataOutput setMetadataObjectTypes:metaDataObjectTypes];
+	NSArray *available = [self.metadataOutput availableMetadataObjectTypes];
+	
+	[self.metadataOutput setMetadataObjectTypes:[metaDataObjectTypes BMF_filter:^BOOL(id input) {
+		return [available containsObject:input];
+	}]];
 }
 
 - (void)layoutSubviews {
@@ -116,6 +145,7 @@
 
 - (void)start {
     if (!_scanning) {
+		[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         _scanning = YES;
         [self.matchView reset];
         [self.captureSession startRunning];
@@ -129,6 +159,7 @@
 
 - (void)stop {
     if (_scanning) {
+		[[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
         _scanning = NO;
         [_timer invalidate];
         _timer = nil;
